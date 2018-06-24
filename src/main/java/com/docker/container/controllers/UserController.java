@@ -18,15 +18,24 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping(value="/users")
+	@GetMapping(value = "/users")
 	public List<User> getAllUsers() {
 		return userService.getAllUsers();
 	}
-	
-	 @RequestMapping("/user/me")
-	    public Principal user(Principal principal) {
+
+	/**
+	 * To Get Current LoggedIn User
+	 * http://localhost:8085/api/user/me?access_token=dd9f8111-e8d3-4243-9d6f-13b62511ba37
+	 * 
+	 * @param principal
+	 * @return
+	 */
+	@GetMapping("/user/me")
+	public Principal user(Principal principal) {
+
 		System.out.println(principal);
-	        return principal;
-	    }
+		
+		return principal;
+	}
 
 }

@@ -12,11 +12,18 @@ import com.docker.container.entities.User;
 import com.docker.container.service.UserService;
 
 //cross site scripting
+/**
+ * http://localhost:8085/oauth/token?grant_type=password&username=atwa&password=salah
+ * http://localhost:8085/api/home
+ * http://localhost:8085/api/user/me?access_token=dd9f8111-e8d3-4243-9d6f-13b62511ba37
+ * 
+ * @author atwa Jun 23, 2018
+ */
 @SpringBootApplication
 public class SpringbootDockerize1Application {
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private PasswordEncoder encoder;
 
 	@Autowired
 	private UserService userService;
@@ -33,13 +40,14 @@ public class SpringbootDockerize1Application {
 	public void insertUser() {
 		User user = new User();
 		user.setUsername("atwa");
-		user.setPassword(passwordEncoder.encode("salah"));
+		user.setPassword(encoder.encode("salah"));
 		user.setRoles(Arrays.asList(new Role("USER"), new Role("ACTUATOR")));
+		user.setAge(50);
 
 		userService.save(user);
 	}
-
-	// http://localhost:8085/oauth/token?grant_type=password&username=ssss&password=salah
+	// 7cd4dc6c-d173-4490-a221-cd3d607ac12b atwa
+	// dbe93227-617b-467e-b096-bde39acfd296 russia
 
 	/*
 	 * @Autowired public void authenticationManager(AuthenticationManagerBuilder

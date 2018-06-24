@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.docker.container.repo.UserRepo;
@@ -20,10 +21,8 @@ import com.docker.container.repo.UserRepo;
  * @author atwa Jun 19, 2018
  */
 @Configuration
-public class ResourceServerConfigure extends WebSecurityConfigurerAdapter {
-
-	@Autowired
-	private UserRepo userRepo;
+@EnableResourceServer
+public class ResourceServerConfigure extends ResourceServerConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
@@ -31,26 +30,14 @@ public class ResourceServerConfigure extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/users/**").authenticated();
 	}
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(new UserDetailsService() {
-
-			@Override
-			public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-				return new CustomUserDetails(userRepo.findByUsername(username));
-			}
-		}).passwordEncoder(passwordEncoder());
-
-	}
-
-	@Bean
-	public AuthenticationManager customAuthenticationManager() throws Exception {
-		return authenticationManager();
-	}
-
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	
+	
+	
+	
 
 }
