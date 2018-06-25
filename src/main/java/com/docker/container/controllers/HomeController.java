@@ -12,5 +12,12 @@ public class HomeController {
 	public String getWelcome() {
 		return "Hello OAuth";
 	}
+	
+	
+	@GetMapping(value="/home/example")
+	public void getWelcome2() {
+		System.err.println("JUST EXAMPLE");
+	}
+
 
 }
