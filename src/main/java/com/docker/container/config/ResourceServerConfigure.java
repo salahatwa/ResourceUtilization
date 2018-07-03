@@ -26,7 +26,10 @@ public class ResourceServerConfigure extends ResourceServerConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.headers().frameOptions().disable().and().authorizeRequests().antMatchers("/api/home").permitAll()
+		http.headers().frameOptions().disable().and().authorizeRequests()
+		.antMatchers("/api/encryption-parameters").permitAll()
+		.antMatchers("/api//encryption-data").permitAll()
+		.antMatchers("/api/home").permitAll()
 				.antMatchers("/api/users/**").authenticated();
 	}
 
