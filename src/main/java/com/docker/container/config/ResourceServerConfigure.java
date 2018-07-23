@@ -30,6 +30,7 @@ public class ResourceServerConfigure extends ResourceServerConfigurerAdapter {
 		.antMatchers("/api/encryption-parameters").permitAll()
 		.antMatchers("/api//encryption-data").permitAll()
 		.antMatchers("/api/home").permitAll()
+		.antMatchers("/api/mac").permitAll()
 				.antMatchers("/api/users/**").authenticated();
 	}
 

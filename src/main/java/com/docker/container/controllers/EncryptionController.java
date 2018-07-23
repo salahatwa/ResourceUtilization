@@ -1,6 +1,7 @@
 package com.docker.container.controllers;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.PrivateKey;
@@ -21,11 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cit.vericash.common.Message;
-import com.cit.vericash.common.Payload;
 import com.cit.vericash.common.Request;
 import com.docker.container.utils.FileUtils;
-import com.docker.container.utils.RSAUtils;
 import com.docker.container.utils.GenericResponse;
+import com.docker.container.utils.RSAUtils;
 import com.google.gson.Gson;
 
 @RestController
@@ -35,7 +35,7 @@ public class EncryptionController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(EncryptionController.class);
 
 	public boolean isKeyFileSave = true;
-
+	
 	@GetMapping(value = "/generate_public_key")
 	public GenericResponse getEncryptionPublicKey(HttpServletRequest request) {
 
